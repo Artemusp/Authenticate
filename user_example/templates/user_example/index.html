@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <meta charset="UTF-8">
+    <title>The index</title>
+</head>
+<body>
+
+    <h1> This is the index page</h1>
+    {% if user.is_authenticated %}
+        <h2> Your name is: {{ user.username }}</h2>
+    {% else %}
+        <h2> You are not log in</h2>
+
+    {% endif %}
+    <h1><a  class="btn btn-default" href="{% url 'login'  %}"><span class="glyphicon glyphicon-ok"></span> Login </a></h1>
+<div class="dropdown">
+  <a id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="/register">
+    Dropdown <span class="caret"></span>
+  </a>
+
+
+  <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+    ...
+  </ul>
+</div>
+
+
+</body>
+</html>

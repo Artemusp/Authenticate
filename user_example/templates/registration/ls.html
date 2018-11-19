@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+    {% if form.errors %}
+        <p> Opps</p>
+    {% endif %}
+    {%if next %}
+        <p> No access!</p>
+    {% endif %}
+    <form method="post" action = "{% url 'logi' %}">
+        {% csrf_token %}
+        <p> User Name: {{ form.username }}</p>
+        <p> Password: {{ form.password1 }}</p>
+        <p> Password: {{ form.password2 }}</p>
+
+        <p><input type = "submit"  value="login"></p>
+        <input type = "hidden" name = "next" value = "{{ next }}">
+    </form>
+
+
+</body>
+</html>
