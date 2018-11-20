@@ -15,13 +15,16 @@ Including another URLconf
 """
 from django.urls import path
 from . import views
+from django.conf.urls import url
+
 
 urlpatterns = [
     path("", views.start_page, name = "start_page"),
     path("index", views.index, name = "index"),
     path("profile", views.profile, name="profile"),
+    path("register",views.register,name = "register"),
+    url(r'^post/(?P<pk>\d+)/$', views.post_detail, name='post_detail'),
+    url(r'^post/new/$', views.post_new, name='post_new'),
 
-    #path("logi", views.my_view, name = "logi"),
-    path("register",views.register,name = "register")
 
 ]

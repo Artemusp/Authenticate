@@ -21,7 +21,6 @@
  </head>
  <body>
         <h1> This is the Start Page </h1>
-
         {% if not user.is_authenticated %}
             <a  class="btn btn-default" href="{% url 'login'  %}"><span class="glyphicon glyphicon-log-in "></span> Login </a>
             <a  class="btn btn-default" href="{% url 'register'  %}"><span class="glyphicon glyphicon-ok"></span> Registration </a>
@@ -51,7 +50,8 @@
  <div id = "content">
 
      {% if  user.is_authenticated %}
-         <a  class="btn btn-default" href="{% url 'start_page'  %}"><span class="glyphicon glyphicon-plus"></span> Add Post </a>
+                 <h1><a  class="btn btn-default" href="{% url 'post_new'  %}"><span class="glyphicon glyphicon-plus"></span> Create Post</a></h1>
+
             <div class="dropdown">
             <a id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="/register">
                 Dropdown <span class="caret"></span>
@@ -63,11 +63,20 @@
             </ul>
             </div>
      {% endif %}
- <h2>Тут просто текст....</h2>
+ <h2>Тут Посты</h2>
 
 
 <p>
-
+{% for post in posts %}
+    {% if post.image %}
+        <img src="{{ post.image.url }}" class = "img-responsive" width="200"/>
+    {% endif %}
+    <div>
+        <p>published: {{ post.published_date }}</p>
+        <a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a>
+        <p>{{ post.text|linebreaksbr }}</p>
+    </div>
+{% endfor %}
 Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ.
 Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ.
 Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ.

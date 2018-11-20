@@ -40,18 +40,19 @@ a:active {
 
     margin-top: 30px;
     float: top  ;
- margin-left: 100px; /* Отступ справа */
+ margin-left: 300px;
+    /* Отступ справа */
  margin-right: 160px; /* Отступ справа */
  padding: 50px; /* Отступы внутри правого блока */
  background: azure; /* Цвет фона правого блока */
  }
 #content2 {
- width: 200px;
+ width: 100px;
     float: left  ;
     margin-top: 65px;
     margin-left: 100px; /* Отступ справа */
  margin-right: 100px; /* Отступ справа */
     padding: 20px; /* Отступы внутри правого блока */
- background: skyblue; /* Цвет фона правого блока */
+ background: deepskyblue; /* Цвет фона правого блока */
 
 }

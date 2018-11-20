@@ -1,14 +1,44 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login
+from .models import Post
+from django.utils import timezone
+from django.shortcuts import render, get_object_or_404
+from .forms import PostForm
+from .forms import ProfileForm
+from .models import Profile
+
+
 # Create your views here.
+
+def post_new(request):
+
+    if request.method == "POST":
+
+        form = PostForm(request.POST, request.FILES or None)
+        if form.is_valid():
+            post = form.save(commit=False)
+            user = authenticate(username="Artem", password="coding123")
+            post.author = user
+
+            post.published_date = timezone.now()
+            post.save()
+            return redirect('post_detail', pk=post.pk)
+    else:
+        form = PostForm()
+    return render(request, 'user_example/post_edit.html', {'form': form})
+def post_detail(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    return render(request, 'user_example/post_detail.html', {'post': post})
 def index(request):
     return render(request,"user_example/index.html")
 def start_page(request):
-    return render(request,"user_example/start_page.html")
+    posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
+    return render(request,"user_example/start_page.html", {'posts': posts})
 def profile(request):
     return render(request,"user_example/profile.html")
 def register(request):
+
     if request.method == "POST":
         form = UserCreationForm(request.POST)
         print(2)
