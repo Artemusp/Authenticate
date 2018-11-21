@@ -18,7 +18,7 @@ def post_new(request):
         form = PostForm(request.POST, request.FILES or None)
         if form.is_valid():
             post = form.save(commit=False)
-            user = authenticate(username="Artem", password="coding123")
+            user = authenticate(username="Nikita", password="coding123")
             post.author = user
 
             post.published_date = timezone.now()
