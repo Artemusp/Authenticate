@@ -1,6 +1,10 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
-
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="{% static 'css/style1.css' %}">
 <body>
 <div class="post">
         {% if post.published_date %}
@@ -14,6 +18,7 @@
             <img src="{{ post.image.url }}" class = "img-responsive" width="100"/>
         {%  endif %}
     </div>
+<h1><a  class="btn btn-default" href="{% url 'start_page'  %}"><span class="glyphicon glyphicon-home"></span> Start Page </a></h1>
 
 </body>
 </html>

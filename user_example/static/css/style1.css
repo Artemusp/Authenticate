@@ -47,11 +47,11 @@ a:active {
  background: azure; /* Цвет фона правого блока */
  }
 #content2 {
- width: 100px;
+ width: 200px;
     float: left  ;
     margin-top: 65px;
     margin-left: 100px; /* Отступ справа */
- margin-right: 100px; /* Отступ справа */
+ margin-right: 0px; /* Отступ справа */
     padding: 20px; /* Отступы внутри правого блока */
  background: deepskyblue; /* Цвет фона правого блока */
 

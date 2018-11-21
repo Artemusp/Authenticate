@@ -4,6 +4,8 @@
 <head>
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="{% static 'css/style1.css' %}">
+
     <meta charset="UTF-8">
     <title>The index</title>
 </head>
@@ -17,7 +19,7 @@
 
     {% endif %}
     <h1><a  class="btn btn-default" href="{% url 'logout'  %}"><span class="glyphicon glyphicon-ok"></span> Logout </a></h1>
-    <h1><a  class="btn btn-default" href="{% url 'start_page'  %}"><span class="glyphicon glyphicon-ok"></span> Start Page </a></h1>
+    <h1><a  class="btn btn-default" href="{% url 'start_page'  %}"><span class="glyphicon glyphicon-home"></span> Start Page </a></h1>
 <div class="dropdown">
   <a id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="/register">
     Dropdown <span class="caret"></span>

@@ -7,6 +7,7 @@ from django.shortcuts import render, get_object_or_404
 from .forms import PostForm
 from .forms import ProfileForm
 from .models import Profile
+from django.contrib.auth.models import User
 
 
 # Create your views here.
@@ -18,6 +19,7 @@ def post_new(request):
         form = PostForm(request.POST, request.FILES or None)
         if form.is_valid():
             post = form.save(commit=False)
+            print(request.user.username)
             user = authenticate(username="Artem", password="coding123")
             post.author = user
 
@@ -28,6 +30,8 @@ def post_new(request):
         form = PostForm()
     return render(request, 'user_example/post_edit.html', {'form': form})
 def post_detail(request, pk):
+    print(request.user.username)
+    print(1)
     post = get_object_or_404(Post, pk=pk)
     return render(request, 'user_example/post_detail.html', {'post': post})
 def index(request):

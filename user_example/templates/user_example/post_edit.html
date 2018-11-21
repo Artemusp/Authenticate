@@ -1,5 +1,11 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="{% static 'css/style1.css' %}">
+
 <head>
     <meta charset="UTF-8">
     <title>Post Profile</title>
@@ -10,6 +16,8 @@
         {{ form.as_p }}
         <a></a>
         <button type="submit" class="save btn btn-default">Save</button>
+
     </form>
+    <h1><a  class="btn btn-default" href="{% url 'start_page'  %}"><span class="glyphicon glyphicon-home"></span> Start Page </a></h1>
 </body>
 </html>
