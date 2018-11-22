@@ -11,6 +11,8 @@ from django.contrib.auth.models import User
 
 
 # Create your views here.
+def buttons(request):
+    return render(request,"user_example/buttons2.html")
 
 def post_new(request):
 
@@ -19,8 +21,10 @@ def post_new(request):
         form = PostForm(request.POST, request.FILES or None)
         if form.is_valid():
             post = form.save(commit=False)
+
             print(request.user.username)
-            user = authenticate(username="Artem", password="coding123")
+            user = authenticate(username="Artem", password="coding123")#Тут меняй Artem на Nikita
+
             post.author = user
 
             post.published_date = timezone.now()

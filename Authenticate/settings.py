@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 's^r%((32_y9837tf00rzgub^6cb46+bs#4e=kl^v8p01da0b$^'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["127.0.0.1","127.0.0.1:8000", "history.pythonanywhere.com"]
 
 
 # Application definition

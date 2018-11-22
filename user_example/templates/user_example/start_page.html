@@ -1,91 +1,191 @@
 {% load static %}
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+<head>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
 
-        <link rel="stylesheet" href="{% static 'css/style1.css' %}">
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-  <title>Сайт по истории кино</title>
-       <style>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+    <title>Сайт по истории кино</title>
+    <style>
    body {
-        background-image: url({% static 'fon.jpg' %});
-
-
+   font-family: "Roboto", sans-serif;
+    background:#edeef0
    }
-  </style>
-  <style type="text/css">
-  </style>
- </head>
- <body>
-        <h1> This is the Start Page </h1>
-        {% if not user.is_authenticated %}
-            <a  class="btn btn-default" href="{% url 'login'  %}"><span class="glyphicon glyphicon-log-in "></span> Login </a>
-            <a  class="btn btn-default" href="{% url 'register'  %}"><span class="glyphicon glyphicon-ok"></span> Registration </a>
 
+    </style>
+    <style type="text/css">
+    </style>
+</head>
+<body>
 
-        {% else %}
-            <a  class="btn btn-default" href="{% url 'profile'  %}"><span class="glyphicon glyphicon-user "></span> {{  user.username}} </a>
-            <a  class="btn btn-default" href="{% url 'logout'  %}"><span class="glyphicon glyphicon-log-out"></span> Logout </a>
-
-
-        {% endif %}
-
-
-        <div id = "content2">
-  		<div> <a id = "link1" href = "http://127.0.0.1:8000/">  Основная страница    </a>	 </div>
-  		<div> <a id = "link1" href = "https://vk.com/uspenskiys17b1"> Страница курса   </a>	 </div>
-  		<div> <a id = "link1" href = "https://vk.com/uspenskiys17b1"> Ссылка на литературу   </a>	 </div>
-  		<div> <a id = "link1" href = "https://vk.com/regnerische_stadt"> Еще одна ссылка   </a>	 </div>
-
-  		<div> <a id = "link1" href = "https://vk.com/uspenskiys17b1"> Еще одна ссылка   </a>	 </div>
-  		<div> <a id = "link1" href = "https://vk.com/uspenskiys17b1"> Еще одна ссылка   </a>	 </div>
-  		<div> <a id = "link1" href = "https://vk.com/uspenskiys17b1"> Еще одна ссылка   </a>	 </div>
-
-        <div> <a id = "link1" href = {% static 'vova.jpg' %}> Vova </a>  </div>
-        </div>
-
- <div id = "content">
-
-     {% if  user.is_authenticated %}
-                 <h1><a  class="btn btn-default" href="{% url 'post_new'  %}"><span class="glyphicon glyphicon-plus"></span> Create Post</a></h1>
-
-            <div class="dropdown">
-            <a id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="/register">
-                Dropdown <span class="caret"></span>
-            </a>
-
-
-            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                ...
-            </ul>
-            </div>
-     {% endif %}
- <h2>Тут Посты</h2>
-
-
-<p>
-{% for post in posts %}
-    {% if post.image %}
-        <img src="{{ post.image.url }}" class = "img-responsive" width="200"/>
+<header>{% if not user.is_authenticated %}
+    <a class="btn btn-default" href="{% url 'login'  %}"><span class="glyphicon glyphicon-log-in "></span> Login </p>
+    </a>
+    <a class="btn btn-default" href="{% url 'register'  %}"><span class="glyphicon glyphicon-ok"></span> Registration
+    </a>
+    {% else %}
+    <a class="btn btn-default" href="{% url 'profile'  %}"><span class="glyphicon glyphicon-user "></span>
+        {{user.username}} </a>
+    <a class="btn btn-default" href="{% url 'logout'  %}"><span class="glyphicon glyphicon-log-out"></span> Logout </a>
     {% endif %}
-    <div>
-        <p>published: {{ post.published_date }}</p>
-        <a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a>
-        <p>{{ post.text|linebreaksbr }}</p>
+
+</header>
+
+
+<div id="content2">
+    <div><a id="link1" href="http://127.0.0.1:8000/"> <strong><p> Основная страница </p></strong> </a></div>
+    <div><a id="link1" href="https://vk.com/uspenskiys17b1"> <strong><p> Страница курса </p></strong> </a></div>
+    <div><a id="link1" href="https://vk.com/uspenskiys17b1"> <strong><p> Ссылка на литературу </p></strong> </a></div>
+    <div><a id="link1" href="https://vk.com/regnerische_stadt"> <strong><p> Еще одна ссылка </p></strong> </a></div>
+    <div><a id="link1" href="https://vk.com/uspenskiys17b1"> <strong><p> Еще одна ссылка </p></strong> </a></div>
+    <div><a id="link1" href="https://vk.com/uspenskiys17b1"> <strong><p> Еще одна ссылка </p></strong> </a></div>
+    <div><a id="link1" href="https://vk.com/uspenskiys17b1"> <strong><p> Еще одна ссылка </p></strong> </a></div>
+    <div><a id="link1" href={% static 'vova.jpg' %}> <strong><p> Vova </p></strong>   </a>  </div>
+</div>
+<div id="content">
+    {% if user.is_authenticated %}
+    <!-- ДЕЛО В СЛЕДУЮЩИХ 2 СТРОКАХ 1 КНОПКУ ОН ВИДИТ 2 НЕТ(У МЕНЯ  В КОДЕ 2 ВАРИАНТ У ТЕБЯ РАБОТАЕТ 1 , НЕ ЕБУ ПОЧЕМУ -->
+    <!-- ВСЕ МОЖЕШЬ ЗАНИМАТЬСЯ СЕКСОМ-->
+    <!-- python manage.py runserver -->
+    <!-- желательно ниче не коммитить и не пушить а тупо тут сохранять на компе -->
+    <!-- логин - Nikita пароль - coding123 -->
+
+
+    <div class="dropdown">
+        <a id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="/register">
+            Dropdown <span class="caret"></span>
+        </a>
+
+        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+            ...
+        </ul>
     </div>
+    {% endif %}
+
+    <h3>ПОСЛЕДНИЕ ПОСТЫ </h3>
+
+
+    <p>
+        {% for post in posts %}
+        {% if post.image %}
+        <img src="{{ post.image.url }}" class="img-responsive" width="200"/>
+        {% endif %}
+        <div>
+    <p>published: {{ post.published_date }}</p>
+    <a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a>
+    <p>{{ post.text|linebreaksbr }}</p>
+</div>
 {% endfor %}
-Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ.
-Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ.
-Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ. Вот бы не слить экзы в ВШЭ.
+
+<a class="btn btn-default" href="{% url 'post_new'  %}"><span class="glyphicon glyphicon-plus"></span> Create
+    Post</a>
+<!-- кнопка создать пост внизу страницы -->
 
 </p>
 </div>
 
 
+<style>
+
+   #link1{
+    font-family: "Roboto", sans-serif;
+   	float: left;
+   	font-size: 100%;
+      margin-left: 16px;
+      margin-top: 30px;
+   	margin-bottom: 4px;
+   }
+bs{
+           margin-left: -440px;
+    margin-right: 260px;
 
 
- </body>
+
+}
+h1{
+    margin-left: 800px;
+    color:   goldenrod;
+}
+h3
+{
+
+    font-size: 120%;
+    font-family: "Roboto", sans-serif;
+    color: #99b1c6;
+}
+
+
+.title{
+ font-size: 36px;
+
+ text-align: center;
+}
+.menu{
+ list-style: none;
+ position: absolute;
+ top: 10px;
+ right: 100px;
+}
+
+
+header{
+ width: 100%;
+ background: #224b7a;
+ height: 56px;
+
+position: fixed;
+}
+
+ a:link {
+ font-family: "Roboto", sans-serif;
+  color: firebrick;
+}
+a:visited {
+font-family: "Roboto", sans-serif;
+  color:    #99b1c6;
+}
+a:hover {
+  color: #edeef0;
+}
+a:active {
+  color: #edeef0;
+  border-bottom: 1px dashed;
+}
+
+
+#content {
+font-family: "Roboto", sans-serif;
+ margin-left: 240px;
+    /* Отступ справа */
+ margin-right: 160px; /* Отступ справа */
+ padding: 40px; /* Отступы внутри правого блока */
+ background:  #ffffff ; /* Цвет фона правого блока */
+ }
+#content2 {
+font-family: "Roboto", sans-serif;
+ width: 200px;
+    float: left  ;
+    margin-top: 40px;
+    margin-left: 8px; /* Отступ справа от край */
+ margin-right: 32px; /* Отступ справа для правого блока*/
+    padding: 8px /* Отступы внутри правого блока */
+ background: #edeef0; /* Цвет фона левого блока */
+
+}
+
+
+
+
+
+
+
+
+
+</style>
+
+
+</body>
 </html>
