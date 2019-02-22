@@ -76,7 +76,8 @@ font-family: "Roboto", sans-serif;
 <form method = "post" action = "{% url 'register' %}">
 {% csrf_token %}
 {% if form.errors %}
-<p> Errors</p>
+<p> Данный логин уже занят или содержит менее 6 символов.
+Пароль содержит менее 8 символов, является слишком распространенным или не совпадает со вторым паролем.</p>
 {% endif %}
 <p> User Name: </p>{{ form.username }}
 <p> Password: </p>{{ form.password1 }}

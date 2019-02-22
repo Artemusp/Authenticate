@@ -2,14 +2,15 @@ from django import forms
 
 from .models import Post
 from .models import Profile
+
 class PostForm(forms.ModelForm):
 
     class Meta:
         model = Post
-        fields = ('title', 'text',"image")
+        fields = ('title', 'text',"image","video_url","rating", "file")
 
 class ProfileForm(forms.ModelForm):
 
     class Meta:
         model = Profile
-        fields = ("image",)
+        fields = ("title","text","image")
