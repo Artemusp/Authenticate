@@ -36,15 +36,10 @@
 
 
 <div id="content2">
-    <div><a class="btn btn-default" href="{% url 'start_page'  %}"><span class="glyphicon glyphicon-ok"></span> Основная страница</a></div>
-    <div><a class="btn btn-default" href="{% url 'working_page'  %}"><span class="glyphicon glyphicon-ok"></span> Черновая страница</a></div>
-    <div><a id="link1" href="http://127.0.0.1:8000/"> <strong><p> Основная страница </p></strong> </a></div>
-    <div><a id="link1" href="https://vk.com/uspenskiys17b1"> <strong><p> Черновая страница </p></strong> </a></div>
-    <div><a id="link1" href="https://vk.com/uspenskiys17b1"> <strong><p> Ссылка на литературу </p></strong> </a></div>
-    <div><a id="link1" href="https://vk.com/regnerische_stadt"> <strong><p> Еще одна ссылка </p></strong> </a></div>
-    <div><a id="link1" href="https://vk.com/uspenskiys17b1"> <strong><p> Еще одна ссылка </p></strong> </a></div>
-    <div><a id="link1" href="https://vk.com/uspenskiys17b1"> <strong><p> Еще одна ссылка </p></strong> </a></div>
-    <div><a id="link1" href="https://vk.com/uspenskiys17b1"> <strong><p> Еще одна ссылка </p></strong> </a></div>
+
+    <div><a id="link1" href="{% url 'start_page'  %}"> <strong><p> Основная страница </p></strong> </a></div>
+    <div><a id="link1" href="{% url 'working_page'  %}"> <strong><p> Черновая страница </p></strong> </a></div>
+    <div><a id="link1" href="{% url 'task_page'  %}"> <strong><p> Страница заданий </p></strong> </a></div>
 </div>
 <div id="content">
 
@@ -99,7 +94,7 @@ h1{
 }
 h3
 {
-
+font-weight: bold;
     font-size: 140%;
     font-family: "Roboto", sans-serif;
     color: #99b1c6;
@@ -107,7 +102,7 @@ h3
 
 h4
 {
-
+font-weight: bold;
     font-size: 200%;
     font-family: "Roboto", sans-serif;
     color: #99b1c6;

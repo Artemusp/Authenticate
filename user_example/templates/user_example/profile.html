@@ -19,9 +19,9 @@
 
                     {% if user.is_authenticated %}
                     <!--<h2> {{ user.username }}</h2>-->
-                        <h2> {{ postss.created_date }}</h2>
-                        <h2> {{ postss.author }}</h2>
-                        <h2> {{ postss.text }}</h2>
+
+
+
                         <h2> {{ postss.title }}</h2>
                         {% if postss.image %}
                         <img src="{{ postss.image.url }}" class="img-responsive" width="300"/>
@@ -30,17 +30,15 @@
     {% else %}
         <h2> You are not log in</h2>
     {% endif %}
+                    <br></br>
+                    <p><strong>Обо мне: </strong> {{ postss.text }} </p>
+                    <p><strong>Дата регестрации: </strong> {{ postss.created_date }} </p>
 
-                    <p><strong>Обо мне: </strong> какая-то информация о пользователе </p>
-                    <p><strong>Дата регестрации: </strong> какая-то информация о пользователе </p>
-                    <p><strong>Количество постов </strong> какая-то информация о пользователе </p>
 
                     </p>
-                    <p><strong>Интересы: </strong>
+                    <p><strong>Оценки: </strong>
                         <span class="tags">HTML5</span>
-                        <span class="tags">CSS3</span>
-                        <span class="tags">С#</span>
-                        <span class="tags">Алгоритмы</span>
+
                     </p>
 
                 </div>
@@ -50,16 +48,7 @@
                     <h1><a class="btn btn-default" href="{% url 'logout'  %}"><span class="glyphicon glyphicon-ok"></span> Logout </a></h1>
                     <h1><a class="btn btn-default" href="{% url 'start_page'  %}"><span class="glyphicon glyphicon-ok"></span> Start Page </a></h1>
 
-<div class="dropdown">
-    <a id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="/register">
-        Dropdown <span class="caret"></span>
-    </a>
 
-
-    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-        ...
-    </ul>
-</div>
 
 
                     <style>

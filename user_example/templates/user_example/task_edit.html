@@ -8,7 +8,7 @@
 
     <meta charset="UTF-8">
 
-<title>Создание нового поста</title>
+<title>Задание</title>
 <body>
 
 <div class="row">
@@ -19,7 +19,7 @@
 
                     <div class="post">
 
-                        <h3>Новый пост</h3>
+                        <h3>Задание</h3>
     <form method="POST"  enctype="multipart/form-data" class="post-form">{% csrf_token %}
         {% if user.is_authenticated %}
             {{ form.as_p }}
@@ -31,8 +31,7 @@
         {% endif %}
 
     </form>
-    <h1><a  class="btn btn-default" href="{% url 'start_page'  %}"><span class="glyphicon glyphicon-home"></span> Start Page </a></h1>
-
+    <h1><a  class="btn btn-default" href="{% url 'task_page'  %}"><span class="glyphicon glyphicon-home"></span> Task Page </a></h1>
 </body>
 </html>
 

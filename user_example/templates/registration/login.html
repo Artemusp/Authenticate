@@ -1,3 +1,5 @@
+{% load static %}
+    <link rel="stylesheet" href="{% static 'css/style_buttons2.css' %}">
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -80,6 +82,13 @@ font-family: "Roboto", sans-serif;
     <br></br>
 <p><input type = "submit" value="login"><span class="glyphicon glyphicon-log-in "></span> </p>
 <input type = "hidden" name = "next" value = "{{ next }}">
+    <div id="menuBall2" class="menuBall">
+	<a href="{% url 'start_page'  %}" class="ball redball">
+    <div class="menuText">
+        Start Page
+    </div>
+  </a>
+</div>
 </form>
 </body>
 </html>

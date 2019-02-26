@@ -38,14 +38,13 @@
 <div id="content2">
 
     <div><a id="link1" href="{% url 'start_page'  %}"> <strong><p> Основная страница </p></strong> </a></div>
-    <div><a id="link1" href="{% url 'working_page'  %}"> <strong><p> Черновая  страница </p></strong> </a></div>
+    <div><a id="link1" href="{% url 'working_page'  %}"> <strong><p> Черновая страница </p></strong> </a></div>
     <div><a id="link1" href="{% url 'task_page'  %}"> <strong><p> Страница заданий </p></strong> </a></div>
-
 </div>
 <div id="content">
 
     <br>
-    <h4>Последние посты </h4>
+    <h4>Последние задания </h4>
 
 
     <p>
@@ -53,7 +52,7 @@
 
             <div>
                 <!--<p>published: {{ post.published_date }}</p> -->
-                <h3> <a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h3>
+                <h3> <a href="{% url 'task_detail' pk=post.pk %}">{{ post.title }}</a></h3>
                 <!--<p>{{ post.text|linebreaksbr }}</p>-->
             </div>
             {% if post.image %}
@@ -63,7 +62,7 @@
         {% endfor %}
     {% if user.is_authenticated %}
 
-<a class="btn btn-default" href="{% url 'post_new'  %}"><span class="glyphicon glyphicon-plus"></span> Create
+<a class="btn btn-default" href="{% url 'task_new'  %}"><span class="glyphicon glyphicon-plus"></span> Create
     Post</a>
     {% endif %}
 <!-- кнопка создать пост внизу страницы -->
@@ -91,22 +90,19 @@ bs{
 }
 h1{
     margin-left: 800px;
-
     color:   goldenrod;
 }
 h3
 {
-
+font-weight: bold;
     font-size: 140%;
-    font-weight: bold;
     font-family: "Roboto", sans-serif;
     color: #99b1c6;
 }
 
 h4
 {
-    font-weight: bold;
-
+font-weight: bold;
     font-size: 200%;
     font-family: "Roboto", sans-serif;
     color: #99b1c6;
