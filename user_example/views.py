@@ -34,7 +34,7 @@ def post_edit(request, pk):
     post = get_object_or_404(Post, pk=pk)
 
     if request.user != post.author:
-        print(1)
+
         return start_page(request)
     if request.method == "POST":
         form = PostForm(request.POST, request.FILES or None, instance=post)
@@ -57,8 +57,6 @@ def buttons(request):
     return render(request,"user_example/modal_boost.html")
 
 def video(request):
-    a = "asd"
-
 
     return render(request, "user_example/video.html")
 
@@ -92,8 +90,7 @@ def post_new(request):
             #
             #print(request.user.username)
             #user = authenticate(username="Artem", password="coding123")#Тут меняй Artem на Nikita
-            print(request.user)
-            print("lul")
+
             if not request.user.is_authenticated:
                 start_page(request)
             post.author = request.user
@@ -138,7 +135,6 @@ def profile_detail(request, pk):
 
 def post_detail(request, pk):
     #print(request.user.username)
-    #print(1)
 
     post = get_object_or_404(Post, pk=pk)
     profiles = Profile.objects.filter(author=post.author)[0]
@@ -157,8 +153,6 @@ def start_page(request):
         if posts[j].rating < 8:
             posts = posts[:j] + posts[j+1:]
 
-    ### Нужно сделать срез (с какого рейтингу постить)
-    ### Здесь можно сортануть еще по дате , просто сортануть posts по времени
     return render(request,"user_example/start_page.html", {'posts': posts})
 
 def working_page(request):
@@ -169,11 +163,10 @@ def working_page(request):
 def profile(request):
     username1 = request.user.username
     print(username1)
-    profiles = Profile.objects.filter(author=request.user)#, title=username1) ### мы нашли наш профайл #### Возможно убрать поиск по title это ник он может быть любым не равным логину, но это плохо для постов
+    profiles = Profile.objects.filter(author=request.user)
 
     if len(profiles) == 0:
-        ### Нужно создать профайл
-        print(1)
+
         return redirect('profile_new')
         #pass
     else:
@@ -195,7 +188,7 @@ def register(request):
 
     if request.method == "POST":
         form = UserCreationForm(request.POST)
-        #print(2)
+
         if(form.is_valid()):
             form.save()
             username = form.cleaned_data["username"]
@@ -314,8 +307,7 @@ def task_page(request):
     posts = Task.objects.filter().order_by("published_date")
     posts = posts.reverse()
 
-    ### Нужно сделать срез (с какого рейтингу постить)
-    ### Здесь можно сортануть еще по дате , просто сортануть posts по времени
+
     if is_member(request.user, "teacher"):
         return render(request, "user_example/Task_page.html", {'posts': posts})
     else:
@@ -329,7 +321,7 @@ def task_page(request):
 
 def task_detail(request, pk):
     #print(request.user.username)
-    #print(1)
+
     post = get_object_or_404(Task, pk=pk)
     return render(request, 'user_example/task_detail.html', {'post': post})
 
@@ -348,12 +340,11 @@ def task_new(request):
             #
             #print(request.user.username)
             #user = authenticate(username="Artem", password="coding123")#Тут меняй Artem на Nikita
-            #print(request.user)
-            #print("lul")
+
             if not request.user.is_authenticated:
                 task_page(request)
             post.author = request.user
-            ##
+
             post.published_date = timezone.now()
             post.save()
             return redirect('task_detail', pk=post.pk)
@@ -372,23 +363,23 @@ def my_view(request):
     if request.method == "POST":
         form = UserCreationForm(request.POST)
         #print(form.errors)
-        #print(1)
+
         if (form.is_valid()):
-            #print(2)
+
             form.save()
-            #print(1)
+
             username = form.cleaned_data["username"]
             password = form.cleaned_data["password1"]
-            #print()
+
             user = authenticate(username=username, password=password)
             if user is not None:
 
                 login(request, user)
                 return redirect("index")
-                # Redirect to a success page.
+
 
             else:
-                #print("lul")
+
                 return redirect("index")
     else:
         form = UserCreationForm(request.POST)
