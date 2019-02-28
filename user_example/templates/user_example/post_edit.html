@@ -22,6 +22,7 @@
                         <h3>Новый пост</h3>
     <form method="POST"  enctype="multipart/form-data" class="post-form">{% csrf_token %}
         {% if user.is_authenticated %}
+
             {{ form.as_p }}
 
             <a></a>

@@ -64,6 +64,8 @@ def video(request):
 
 def parser_for_video_url(url):
     hosts = ["youtube.com","rutube.ru","coub.com","vimeo.com","youtu.be"]
+    if "watch" in url:
+        url = url[:url.find("watch")]+url[url.find("watch")+8:]
     if "embed" in url:
         return url
     for j in hosts:
@@ -79,6 +81,9 @@ def post_new(request):
 
     if not request.user.is_authenticated:
         return start_page(request)
+    profiles = Profile.objects.filter(author=request.user)
+    if len(profiles) == 0:
+        return redirect('profile_new')
     if request.method == "POST":
 
         form = PostForm(request.POST, request.FILES or None)
@@ -134,13 +139,24 @@ def profile_detail(request, pk):
 def post_detail(request, pk):
     #print(request.user.username)
     #print(1)
+
     post = get_object_or_404(Post, pk=pk)
-    return render(request, 'user_example/post_detail.html', {'post': post})
+    profiles = Profile.objects.filter(author=post.author)[0]
+    url_profile = profiles.title
+    if is_member(request.user,"teacher"):
+        return render(request, 'user_example/post_detail.html', {'post': post, "author":profiles.title,"url_prof":url_profile})
+    else:
+        return render(request, 'user_example/post_detail_stud.html',{'post': post, "author": profiles.title, "url_prof": url_profile})
 def index(request):
     return render(request,"user_example/index.html")
 def start_page(request):
     posts = Post.objects.filter().order_by('rating')
     posts = posts.reverse()
+    lens = len(posts)
+    for j in range(lens-1,-1,-1):
+        if posts[j].rating < 8:
+            posts = posts[:j] + posts[j+1:]
+
     ### Нужно сделать срез (с какого рейтингу постить)
     ### Здесь можно сортануть еще по дате , просто сортануть posts по времени
     return render(request,"user_example/start_page.html", {'posts': posts})
@@ -165,7 +181,16 @@ def profile(request):
         #print(len(profiles))
 
         #print(is_member(request.user,"group1"))
-        return render(request,"user_example/profile.html", {"postss":profiles})
+        if is_member(profiles.author,"teacher"):
+            status = "Учитель"
+        else:
+            status = "Студент"
+        posts = Post.objects.filter(author=profiles.author)
+        string1 = []
+        for j in posts:
+            string1.append(str(j.rating))
+
+        return render(request,"user_example/profile.html", {"postss":profiles, "status":status,"values":string1})
 def register(request):
 
     if request.method == "POST":
@@ -199,7 +224,7 @@ def rating_enter0(request,pk):
         post.save()
         print(post.title)
 
-    return redirect("start_page")
+    return redirect('post_detail', pk=post.pk)
 
 def rating_enter1(request,pk):
     if is_member(request.user, "teacher"):
@@ -208,7 +233,7 @@ def rating_enter1(request,pk):
         post.save()
         print(post.title)
 
-    return redirect("start_page")
+    return redirect('post_detail', pk=post.pk)
 def rating_enter2(request,pk):
     if is_member(request.user, "teacher"):
         post = get_object_or_404(Post, pk=pk)
@@ -216,7 +241,7 @@ def rating_enter2(request,pk):
         post.save()
         print(post.title)
 
-    return redirect("start_page")
+    return redirect('post_detail', pk=post.pk)
 def rating_enter3(request,pk):
     if is_member(request.user, "teacher"):
         post = get_object_or_404(Post, pk=pk)
@@ -224,7 +249,7 @@ def rating_enter3(request,pk):
         post.save()
         print(post.title)
 
-    return redirect("start_page")
+    return redirect('post_detail', pk=post.pk)
 def rating_enter4(request,pk):
     if is_member(request.user, "teacher"):
         post = get_object_or_404(Post, pk=pk)
@@ -232,7 +257,7 @@ def rating_enter4(request,pk):
         post.save()
         print(post.title)
 
-    return redirect("start_page")
+    return redirect('post_detail', pk=post.pk)
 def rating_enter5(request,pk):
     if is_member(request.user, "teacher"):
         post = get_object_or_404(Post, pk=pk)
@@ -240,7 +265,7 @@ def rating_enter5(request,pk):
         post.save()
         print(post.title)
 
-    return redirect("start_page")
+    return redirect('post_detail', pk=post.pk)
 def rating_enter6(request,pk):
     if is_member(request.user, "teacher"):
         post = get_object_or_404(Post, pk=pk)
@@ -248,7 +273,7 @@ def rating_enter6(request,pk):
         post.save()
         print(post.title)
 
-    return redirect("start_page")
+    return redirect('post_detail', pk=post.pk)
 def rating_enter7(request,pk):
     if is_member(request.user, "teacher"):
         post = get_object_or_404(Post, pk=pk)
@@ -256,7 +281,7 @@ def rating_enter7(request,pk):
         post.save()
         print(post.title)
 
-    return redirect("start_page")
+    return redirect('post_detail', pk=post.pk)
 def rating_enter8(request,pk):
     if is_member(request.user, "teacher"):
         post = get_object_or_404(Post, pk=pk)
@@ -264,7 +289,7 @@ def rating_enter8(request,pk):
         post.save()
         print(post.title)
 
-    return redirect("start_page")
+    return redirect('post_detail', pk=post.pk)
 def rating_enter9(request,pk):
     if is_member(request.user, "teacher"):
         post = get_object_or_404(Post, pk=pk)
@@ -272,7 +297,7 @@ def rating_enter9(request,pk):
         post.save()
         print(post.title)
 
-    return redirect("start_page")
+    return redirect('post_detail', pk=post.pk)
 def rating_enter10(request,pk):
     if is_member(request.user, "teacher"):
         post = get_object_or_404(Post, pk=pk)
@@ -280,7 +305,7 @@ def rating_enter10(request,pk):
         post.save()
         print(post.title)
 
-    return redirect("start_page")
+    return redirect('post_detail', pk=post.pk)
 
 
 
@@ -288,9 +313,13 @@ def rating_enter10(request,pk):
 def task_page(request):
     posts = Task.objects.filter().order_by("published_date")
     posts = posts.reverse()
+
     ### Нужно сделать срез (с какого рейтингу постить)
     ### Здесь можно сортануть еще по дате , просто сортануть posts по времени
-    return render(request, "user_example/Task_page.html", {'posts': posts})
+    if is_member(request.user, "teacher"):
+        return render(request, "user_example/Task_page.html", {'posts': posts})
+    else:
+        return render(request, "user_example/Task_page_stud.html", {'posts': posts})
 
 
 

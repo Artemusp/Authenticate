@@ -33,16 +33,10 @@
 
 
 
-                    <!--{% if user.is_authenticated %}
-                        <a class="btn btn-default" href="{% url 'post_edit' pk=post.pk %}"><span
-                                class="glyphicon glyphicon-pencil"></span>Edit</a>
 
-                        <a class="btn btn-default" href="{% url 'remove_post' pk=post.pk %}"><span
-                                class="glyphicon glyphicon-pencil"></span>Delete</a> -->
-                    {% endif %}
 
-                    <h1><a class="btn btn-default" href="{% url 'start_page' %}"><span
-                            class="glyphicon glyphicon-home"></span> Start Page </a></h1>
+                    <a class="btn btn-default" href="{% url 'start_page' %}"><span
+                            class="glyphicon glyphicon-home"></span>  </a>
                         {% if post.image %}
                             <img src="{{ post.image.url }}" class="img-responsive" width="640"/>
                         {% endif %}
@@ -120,3 +114,14 @@
 
 </body>
 </html>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<script type="text/javascript">(function() {
+if (window.pluso)if (typeof window.pluso.start == "function") return;
+if (window.ifpluso==undefined) { window.ifpluso = 1;
+var d = document, s = d.createElement('script'), g = 'getElementsByTagName';
+s.type = 'text/javascript'; s.charset='UTF-8'; s.async = true;
+s.src = ('https:' == window.location.protocol ? 'https' : 'http') + '://share.pluso.ru/pluso-like.js';
+var h=d[g]('body')[0];
+h.appendChild(s);
+}})();</script>
+<div class="pluso" data-background="transparent" data-options="medium,round,line,horizontal,nocounter,theme=04" data-services="vkontakte,facebook,twitter"></div>

@@ -22,7 +22,7 @@
 
 
 
-                        <h2> {{ postss.title }}</h2>
+                        <h1> {{ postss.title }}</h1>
                         {% if postss.image %}
                         <img src="{{ postss.image.url }}" class="img-responsive" width="300"/>
                         {% endif %}
@@ -31,23 +31,47 @@
         <h2> You are not log in</h2>
     {% endif %}
                     <br></br>
+                    {% if not postss.image %}
+                        <br></br>
+                        <br></br>
+                    {% endif %}
+
                     <p><strong>Обо мне: </strong> {{ postss.text }} </p>
-                    <p><strong>Дата регестрации: </strong> {{ postss.created_date }} </p>
+
 
 
                     </p>
+
                     <p><strong>Оценки: </strong>
-                        <span class="tags">HTML5</span>
+                        {% if values %}
+
+
+                        <span class="tags">{% for post in values %}
+                        {{ post }}
+                    {% endfor %}</span>
+                            {% else %}
+                            Пока нет
+                    {% endif %}
 
                     </p>
+                <p><strong>Дата регестрации: </strong> {{ postss.created_date }} </p>
 
                 </div>
                 <div class="col-xs-12 col-sm-4 text-center">
 
 
-                    <h1><a class="btn btn-default" href="{% url 'logout'  %}"><span class="glyphicon glyphicon-ok"></span> Logout </a></h1>
-                    <h1><a class="btn btn-default" href="{% url 'start_page'  %}"><span class="glyphicon glyphicon-ok"></span> Start Page </a></h1>
+                                                            <br></br>
 
+
+                    <a class="btn btn-default" href="{% url 'logout'  %}"><span class="glyphicon glyphicon-log-out"></span>Logout</a>
+                    <a class="btn btn-default" href="{% url 'start_page'  %}"><span class="glyphicon glyphicon-home"></span>&nbsp;</a>
+
+                    <br></br>
+                    <br></br><br></br>
+                    <p><strong>Статус: </strong>{{ status }}</p>
+                    <p><strong>Направление: </strong> {{ postss.direction }} </p>
+                    <p><strong>Курс: </strong> {{ postss.course }} </p>
+                    <p><strong>Группа: </strong> {{ postss.group }} </p>
 
 
 
@@ -78,9 +102,13 @@ padding: 2px 4px;
 
 
 
-
+h1{
+margin-top: 32px;
+}
 
                     </style>
+
+
 
 
 </body>

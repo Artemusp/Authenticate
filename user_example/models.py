@@ -32,6 +32,9 @@ class Profile(models.Model):
     author = models.ForeignKey('auth.User', on_delete=models.CASCADE)
     #title = models.CharField(max_length=200)
     text = models.TextField(default="")
+    direction = models.CharField(max_length=300)
+    course = models.CharField(max_length=300)
+    group = models.CharField(max_length=300)
 
     image = models.ImageField(null=True, blank=True, height_field="height", width_field="width")
     height = models.IntegerField(default=0)

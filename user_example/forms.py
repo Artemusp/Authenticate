@@ -14,7 +14,7 @@ class ProfileForm(forms.ModelForm):
 
     class Meta:
         model = Profile
-        fields = ("title","text","image")
+        fields = ("title","text","image","course","group","direction")
 
 class TaskForm(forms.ModelForm):
 
