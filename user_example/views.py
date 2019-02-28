@@ -169,6 +169,8 @@ def start_page(request):
 
 # Черновая страница со всеми работами
 def working_page(request):
+    if not request.user.is_authenticated:
+        return start_page(request)
     posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
     posts = posts.reverse()
     return render(request,"user_example/working_page.html", {'posts': posts})
@@ -321,6 +323,9 @@ def rating_enter10(request,pk):
 
 # Страница заданий учителя
 def task_page(request):
+    if not request.user.is_authenticated:
+
+        return start_page(request)
     posts = Task.objects.filter().order_by("published_date")
     posts = posts.reverse()
 

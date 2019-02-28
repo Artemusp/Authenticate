@@ -22,7 +22,6 @@ urlpatterns = [
     path("", views.start_page, name = "start_page"),
     path("task_page", views.task_page, name = "task_page"),
     path("workingpage", views.working_page, name = "working_page"),
-    path("index", views.index, name = "index"),
     path("profile", views.profile, name="profile"),
     path("register",views.register,name = "register"),
     url(r'^post/(?P<pk>\d+)/$', views.post_detail, name='post_detail'),
