@@ -17,7 +17,7 @@ from django.urls import path
 from . import views
 from django.conf.urls import url
 
-
+# Всевозможные корректные переходы на страницы
 urlpatterns = [
     path("", views.start_page, name = "start_page"),
     path("task_page", views.task_page, name = "task_page"),

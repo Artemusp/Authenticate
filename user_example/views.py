@@ -9,13 +9,20 @@ from .forms import ProfileForm, TaskForm
 from .models import Profile, Task
 from django.contrib.auth.models import User,Group
 
+
+# Проверка на уровень доступа.
+# Проверка принадлежности пользователя данной группе.
 def is_member(user, group_name):
     return user.groups.filter(name=group_name).exists()
+
+# Добавление пользователя в группу с правами данной группы.
 def adding_user_to_group(user,group_name):
     my_group = Group.objects.get(name=group_name)
     #print(my_group)
     my_group.user_set.add(user)
-# Create your views here.
+
+
+# Удаление поста
 def remove_post(request,pk):
     post = get_object_or_404(Post, pk=pk)
     if request.user != post.author:
@@ -25,9 +32,7 @@ def remove_post(request,pk):
     #posts = Post.objects.filter( published_date__lte=timezone.now()).order_by('published_date')
     return start_page(request)
 
-
-
-
+# Редактирование поста
 def post_edit(request, pk):
     if not request.user.is_authenticated:
         return start_page(request)
@@ -52,14 +57,16 @@ def post_edit(request, pk):
         form = PostForm(instance=post)
     return render(request, 'user_example/post_edit.html', {'form': form})
 
-
+# Кнопки
 def buttons(request):
     return render(request,"user_example/modal_boost.html")
 
+# Переход к видео
 def video(request):
-
     return render(request, "user_example/video.html")
 
+
+# Парсер ссылки на видео, для отображения в посте
 def parser_for_video_url(url):
     hosts = ["youtube.com","rutube.ru","coub.com","vimeo.com","youtu.be"]
     if "watch" in url:
@@ -74,8 +81,9 @@ def parser_for_video_url(url):
     return False
 
 
+
+# Создание и публикование нового поста
 def post_new(request):
-    #print(parser_for_video_url("https://rutube.ru/video/cd148e0f2363751812686e84899a5200/?pl_id=5255&pl_type=tag"))
 
     if not request.user.is_authenticated:
         return start_page(request)
@@ -89,7 +97,7 @@ def post_new(request):
             post = form.save(commit=False)
             #
             #print(request.user.username)
-            #user = authenticate(username="Artem", password="coding123")#Тут меняй Artem на Nikita
+
 
             if not request.user.is_authenticated:
                 start_page(request)
@@ -105,6 +113,8 @@ def post_new(request):
         form = PostForm()
     return render(request, 'user_example/post_edit.html', {'form': form})
 
+
+# Создание профиля пользователя
 def profle_new(request):
     if not request.user.is_authenticated:
         start_page(request)
@@ -114,9 +124,7 @@ def profle_new(request):
             post = form.save(commit=False)
             #
             #print(request.user.username)
-            #user = authenticate(username="Artem", password="coding123")#Тут меняй Artem на Nikita
-            print(request.user)
-            print("lul")
+
             if not request.user.is_authenticated:
                 start_page(request)
             post.author = request.user
@@ -128,13 +136,15 @@ def profle_new(request):
         form = ProfileForm()
     return render(request, 'user_example/profile_edit.html', {'form': form})
 
+
+# Показ профиля пользователя
 def profile_detail(request, pk):
     #post = get_object_or_404(Profile, pk=pk)
     return profile(request)
-    #return render(request, 'user_example/profile_detail.html', {'post': post})
 
+
+# Показ содержимого поста
 def post_detail(request, pk):
-    #print(request.user.username)
 
     post = get_object_or_404(Post, pk=pk)
     profiles = Profile.objects.filter(author=post.author)[0]
@@ -143,8 +153,9 @@ def post_detail(request, pk):
         return render(request, 'user_example/post_detail.html', {'post': post, "author":profiles.title,"url_prof":url_profile})
     else:
         return render(request, 'user_example/post_detail_stud.html',{'post': post, "author": profiles.title, "url_prof": url_profile})
-def index(request):
-    return render(request,"user_example/index.html")
+
+
+# Стартовая страница с лучшими работами
 def start_page(request):
     posts = Post.objects.filter().order_by('rating')
     posts = posts.reverse()
@@ -155,11 +166,15 @@ def start_page(request):
 
     return render(request,"user_example/start_page.html", {'posts': posts})
 
+
+# Черновая страница со всеми работами
 def working_page(request):
     posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
     posts = posts.reverse()
     return render(request,"user_example/working_page.html", {'posts': posts})
 
+
+# Профиль ученика или учителя
 def profile(request):
     username1 = request.user.username
     print(username1)
@@ -168,12 +183,9 @@ def profile(request):
     if len(profiles) == 0:
 
         return redirect('profile_new')
-        #pass
     else:
         profiles = profiles[0]
-        #print(len(profiles))
 
-        #print(is_member(request.user,"group1"))
         if is_member(profiles.author,"teacher"):
             status = "Учитель"
         else:
@@ -184,6 +196,10 @@ def profile(request):
             string1.append(str(j.rating))
 
         return render(request,"user_example/profile.html", {"postss":profiles, "status":status,"values":string1})
+
+
+
+# Страница регистрации нового пользователя
 def register(request):
 
     if request.method == "POST":
@@ -209,22 +225,22 @@ def register(request):
 
 
 
+### Функции связанные с постановкой рейтинга посту, учителем:
 
 def rating_enter0(request,pk):
     if is_member(request.user, "teacher"):
         post = get_object_or_404(Post, pk=pk)
         post.rating = 0
         post.save()
-        print(post.title)
+
 
     return redirect('post_detail', pk=post.pk)
-
 def rating_enter1(request,pk):
     if is_member(request.user, "teacher"):
         post = get_object_or_404(Post, pk=pk)
         post.rating = 1
         post.save()
-        print(post.title)
+
 
     return redirect('post_detail', pk=post.pk)
 def rating_enter2(request,pk):
@@ -232,7 +248,7 @@ def rating_enter2(request,pk):
         post = get_object_or_404(Post, pk=pk)
         post.rating = 2
         post.save()
-        print(post.title)
+
 
     return redirect('post_detail', pk=post.pk)
 def rating_enter3(request,pk):
@@ -240,7 +256,7 @@ def rating_enter3(request,pk):
         post = get_object_or_404(Post, pk=pk)
         post.rating = 3
         post.save()
-        print(post.title)
+
 
     return redirect('post_detail', pk=post.pk)
 def rating_enter4(request,pk):
@@ -248,7 +264,7 @@ def rating_enter4(request,pk):
         post = get_object_or_404(Post, pk=pk)
         post.rating = 4
         post.save()
-        print(post.title)
+
 
     return redirect('post_detail', pk=post.pk)
 def rating_enter5(request,pk):
@@ -256,7 +272,7 @@ def rating_enter5(request,pk):
         post = get_object_or_404(Post, pk=pk)
         post.rating = 5
         post.save()
-        print(post.title)
+
 
     return redirect('post_detail', pk=post.pk)
 def rating_enter6(request,pk):
@@ -264,7 +280,7 @@ def rating_enter6(request,pk):
         post = get_object_or_404(Post, pk=pk)
         post.rating = 6
         post.save()
-        print(post.title)
+
 
     return redirect('post_detail', pk=post.pk)
 def rating_enter7(request,pk):
@@ -272,7 +288,7 @@ def rating_enter7(request,pk):
         post = get_object_or_404(Post, pk=pk)
         post.rating = 7
         post.save()
-        print(post.title)
+
 
     return redirect('post_detail', pk=post.pk)
 def rating_enter8(request,pk):
@@ -280,7 +296,7 @@ def rating_enter8(request,pk):
         post = get_object_or_404(Post, pk=pk)
         post.rating = 8
         post.save()
-        print(post.title)
+
 
     return redirect('post_detail', pk=post.pk)
 def rating_enter9(request,pk):
@@ -288,7 +304,7 @@ def rating_enter9(request,pk):
         post = get_object_or_404(Post, pk=pk)
         post.rating = 9
         post.save()
-        print(post.title)
+
 
     return redirect('post_detail', pk=post.pk)
 def rating_enter10(request,pk):
@@ -296,17 +312,17 @@ def rating_enter10(request,pk):
         post = get_object_or_404(Post, pk=pk)
         post.rating = 10
         post.save()
-        print(post.title)
+
 
     return redirect('post_detail', pk=post.pk)
 
 
 
 
+# Страница заданий учителя
 def task_page(request):
     posts = Task.objects.filter().order_by("published_date")
     posts = posts.reverse()
-
 
     if is_member(request.user, "teacher"):
         return render(request, "user_example/Task_page.html", {'posts': posts})
@@ -315,21 +331,15 @@ def task_page(request):
 
 
 
-
-
-
-
+# Информация о задание
 def task_detail(request, pk):
-    #print(request.user.username)
 
     post = get_object_or_404(Task, pk=pk)
     return render(request, 'user_example/task_detail.html', {'post': post})
 
 
 
-
-
-
+# Создание нового задания
 def task_new(request):
     if not request.user.is_authenticated or (not is_member(request.user, "teacher")):
         return task_page(request)
@@ -337,9 +347,6 @@ def task_new(request):
         form = TaskForm(request.POST, request.FILES or None)
         if form.is_valid():
             post = form.save(commit=False)
-            #
-            #print(request.user.username)
-            #user = authenticate(username="Artem", password="coding123")#Тут меняй Artem на Nikita
 
             if not request.user.is_authenticated:
                 task_page(request)
@@ -359,30 +366,5 @@ def task_new(request):
 
 
 
-def my_view(request):
-    if request.method == "POST":
-        form = UserCreationForm(request.POST)
-        #print(form.errors)
 
-        if (form.is_valid()):
-
-            form.save()
-
-            username = form.cleaned_data["username"]
-            password = form.cleaned_data["password1"]
-
-            user = authenticate(username=username, password=password)
-            if user is not None:
-
-                login(request, user)
-                return redirect("index")
-
-
-            else:
-
-                return redirect("index")
-    else:
-        form = UserCreationForm(request.POST)
-    context = {"form": form}
-    return render(request,"registration/ls.html",context)
 

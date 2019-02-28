@@ -1,13 +1,4 @@
-/**
- * Chunky 3D Web Buttons
- *
- * Inspiration was taken from:
- * - http://www.premiumpixels.com/freebies/chunky-3d-webbuttons-psd/
- */
 
-/**
- * Shadow
- */
 a.button::before {
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
