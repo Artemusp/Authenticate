@@ -25,6 +25,7 @@ urlpatterns = [
     path("profile", views.profile, name="profile"),
     path("register",views.register,name = "register"),
     url(r'^post/(?P<pk>\d+)/$', views.post_detail, name='post_detail'),
+    url(r'^comment/(?P<pk>\d+)/new/$', views.comment_new, name='comment_new'),
     url(r'^task/(?P<pk>\d+)/$', views.task_detail, name='task_detail'),
     url(r'^task/new/$', views.task_new, name='task_new'),
     url(r'^post/new/$', views.post_new, name='post_new'),

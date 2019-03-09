@@ -76,3 +76,24 @@ class Task(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Comment(models.Model):
+    author_name = models.CharField(max_length= 200, default="Anonymous")
+    #path = ArrayField(models.IntegerField())
+    article_id = models.IntegerField(default=0)
+    author = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+    #author_id = models.ForeignKey(User)
+    text = models.TextField(default="")
+
+    created_date = models.DateTimeField(
+        default=timezone.now)
+    published_date = models.DateTimeField(
+        blank=True, null=True)
+
+    def publish(self):
+        self.published_date = timezone.now()
+        self.save()
+    def __str__(self):
+        return self.author_name
+

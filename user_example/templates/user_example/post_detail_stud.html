@@ -1,6 +1,5 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'css/style_button3.css' %}">
-
 <!DOCTYPE html>
 
 <html lang="en" xmlns="http://www.w3.org/1999/html">
@@ -42,8 +41,9 @@
                                 class="glyphicon glyphicon-trash"></span></a>
                     {% endif %}
 
+
                     <a class="btn btn-default" href="{% url 'start_page' %}"><span
-                            class="glyphicon glyphicon-home"></span>  </a>
+                            class="glyphicon glyphicon-home"></span></a>
                         {% if post.image %}
                             <img src="{{ post.image.url }}" class="img-responsive" width="640"/>
                         {% endif %}
@@ -78,11 +78,14 @@
                     {% if user.is_authenticated %}
                     <span class="tags">Оценка: {{ post.rating }}</span>
                     {% endif %}
-                    <span class="tags">Автор: {{ author }}</span>
+                    <span class="tags">Автор: {{ author }}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
 
                     <br></br>
-            <h4>Комменты </h4>
+<h4>Комменты </h4>
  {% for post1 in coms %}
      Author: {{ post1.author_name }}
      <p></p>
@@ -99,80 +102,7 @@
 
     </form>
             {% endif %}
-                    <div id="menuBall4" class="menuBall">
-                        <a href="{% url 'rating_enter1' pk=post.pk %}" class="ball yellowball">
-                            <div class="menuText">
-                                1
-                            </div>
-                        </a>
-                    </div>
-                    <div id="menuBall4" class="menuBall">
-                        <a href="{% url 'rating_enter2' pk=post.pk %}" class="ball yellowball">
-                            <div class="menuText">
-                                2
-                            </div>
-                        </a>
-                    </div>
-                    <div id="menuBall4" class="menuBall">
-                        <a href="{% url 'rating_enter3' pk=post.pk %}" class="ball yellowball">
-                            <div class="menuText">
-                                3
-                            </div>
-                        </a>
-                    </div>
-                    <div id="menuBall4" class="menuBall">
-                        <a href="{% url 'rating_enter4' pk=post.pk %}" class="ball yellowball">
-                            <div class="menuText">
-                                4
-                            </div>
-                        </a>
-                    </div>
-                    <div id="menuBall4" class="menuBall">
-                        <a href="{% url 'rating_enter5' pk=post.pk %}" class="ball yellowball">
-                            <div class="menuText">
-                                5
-                            </div>
-                        </a>
-                    </div>
 
-                    <div id="menuBall4" class="menuBall">
-
-                        <a href="{% url 'rating_enter6' pk=post.pk %}" class="ball yellowball">
-
-                            <div class="menuText">
-                                6
-                            </div>
-                        </a>
-                    </div>
-                    <div id="menuBall4" class="menuBall">
-                        <a href="{% url 'rating_enter7' pk=post.pk %}" class="ball yellowball">
-                            <div class="menuText">
-                                7
-                            </div>
-                        </a>
-                    </div>
-                    <div id="menuBall4" class="menuBall">
-                        <a href="{% url 'rating_enter8' pk=post.pk %}" class="ball yellowball">
-                            <div class="menuText">
-                                8
-                            </div>
-                        </a>
-                    </div>
-                    <div id="menuBall4" class="menuBall">
-                        <a href="{% url 'rating_enter9' pk=post.pk %}" class="ball yellowball">
-                            <div class="menuText">
-                                9
-                            </div>
-                        </a>
-                    </div>
-                    <div id="menuBall4" class="menuBall">
-                        <a href="{% url 'rating_enter10' pk=post.pk %}" class="ball yellowball">
-                            <div class="menuText">
-                                10
-                            </div>
-                        </a>
-                    </div>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     </p>
                 </div>
                 <div class="col-xs-12 col-sm-4 text-center">
@@ -220,19 +150,6 @@ var h=d[g]('body')[0];
 h.appendChild(s);
 }})();</script>
 <div class="pluso" data-background="transparent" data-options="medium,round,line,horizontal,nocounter,theme=04" data-services="vkontakte,facebook,twitter"></div>
-<!— Ссылки на вызов модальных окон-->
-
-
-<!— Модальное окно №1 —>
-<a href="#x" class="overlay" id="win1"></a>
-<div class="popup">
-
-<b> Подтвердить выставление оценки</b>
-    <a class="btn btn-default" href="{% url 'rating_enter6' pk=post.pk %}"><span
-                                class="glyphicon glyphicon-Ok"></span></a>
-
-<a class="close"title="Закрыть" href="#close"></a>
-</div>
 <!— Модальное окно №2 —>
 <a href="#x" class="overlay" id="win2"></a>
 <div class="popup">

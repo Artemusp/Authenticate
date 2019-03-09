@@ -4,12 +4,41 @@ from django.contrib.auth import authenticate, login
 from .models import Post
 from django.utils import timezone
 from django.shortcuts import render, get_object_or_404
-from .forms import PostForm
+from .forms import PostForm, CommentForm
 from .forms import ProfileForm, TaskForm
-from .models import Profile, Task
+from .models import Profile, Task, Comment
 from django.contrib.auth.models import User,Group
 
 
+def comment_new(request,pk):
+    post_of_comment = int(pk)
+    if not request.user.is_authenticated:
+        start_page(request)
+    profiles = Profile.objects.filter(author=request.user)
+    if len(profiles) == 0:
+        return redirect('profile_new')
+    else:
+        name_user = profiles[0].title
+    if request.method == "POST":
+        form = CommentForm(request.POST, request.FILES or None)
+        if form.is_valid():
+            post = form.save(commit=False)
+            #
+            #print(request.user.username)
+
+            if not request.user.is_authenticated:
+                start_page(request)
+
+            ##
+            post.author = request.user
+            post.author_name = name_user
+            post.published_date = timezone.now()
+            post.article_id = post_of_comment
+            post.save()
+            return redirect('post_detail', pk=pk)
+    else:
+        form = CommentForm()
+    return start_page(request)
 # Проверка на уровень доступа.
 # Проверка принадлежности пользователя данной группе.
 def is_member(user, group_name):
@@ -149,10 +178,11 @@ def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
     profiles = Profile.objects.filter(author=post.author)[0]
     url_profile = profiles.title
+    coms = Comment.objects.filter(article_id=int(pk))
     if is_member(request.user,"teacher"):
-        return render(request, 'user_example/post_detail.html', {'post': post, "author":profiles.title,"url_prof":url_profile})
+        return render(request, 'user_example/post_detail.html', {'post': post, "author":profiles.title,"url_prof":url_profile,"coms":coms})
     else:
-        return render(request, 'user_example/post_detail_stud.html',{'post': post, "author": profiles.title, "url_prof": url_profile})
+        return render(request, 'user_example/post_detail_stud.html',{'post': post, "author": profiles.title, "url_prof": url_profile,"coms":coms})
 
 
 # Стартовая страница с лучшими работами
@@ -163,6 +193,12 @@ def start_page(request):
     for j in range(lens-1,-1,-1):
         if posts[j].rating < 8:
             posts = posts[:j] + posts[j+1:]
+    comments = dict()
+    for j in range(len(posts)):
+        cur = posts[j]
+        coms = Comment.objects.filter(article_id=cur.id)
+        posts[j].coms = coms
+
 
     return render(request,"user_example/start_page.html", {'posts': posts})
 
@@ -203,7 +239,7 @@ def profile(request):
 
 # Страница регистрации нового пользователя
 def register(request):
-
+    return start_page(request)### потом убрать
     if request.method == "POST":
         form = UserCreationForm(request.POST)
 
@@ -358,6 +394,8 @@ def task_new(request):
             post.author = request.user
 
             post.published_date = timezone.now()
+            if parser_for_video_url(post.video_url):
+                post.video_url = parser_for_video_url(post.video_url)
             post.save()
             return redirect('task_detail', pk=post.pk)
     else:

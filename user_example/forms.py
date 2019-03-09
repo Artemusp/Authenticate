@@ -3,6 +3,7 @@ from django import forms
 from .models import Post
 from .models import Profile
 from .models import Task
+from .models import Comment
 
 class PostForm(forms.ModelForm):
 
@@ -21,3 +22,10 @@ class TaskForm(forms.ModelForm):
     class Meta:
         model = Task
         fields = ("title","text","image", "video_url", "file","file2","file3")
+
+
+class CommentForm(forms.ModelForm):
+
+    class Meta:
+        model = Comment
+        fields = ("text",)

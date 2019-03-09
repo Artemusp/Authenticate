@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
@@ -41,13 +41,10 @@ class="glyphicon glyphicon-log-in "></span> Login
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-
 <a  style="margin-left: 1050px;" href="{% url 'profile' %}"><span
 class="glyphicon glyphicon-user "></span>
 {{user.username}} </a>
-<a  href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-out"></span>
-
-    Logout </a>
+<a  href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-out"></span> Logout </a>
 
 {% endif %}
 
@@ -58,106 +55,35 @@ class="glyphicon glyphicon-user "></span>
     {% if user.is_authenticated %}
 <div><a id="link1" href="{% url 'start_page' %}"> <strong><p> Основная страница </p></strong> </a></div>
 <div><a id="link1" href="{% url 'working_page' %}"> <strong><p> Черновая страница </p></strong> </a></div>
-<div><a  id="link1" href="{% url 'task_page' %}"> <strong><p> Страница заданий </p></strong> </a></div>
-
+<div><a id="link1" href="{% url 'task_page' %}"> <strong><p> Страница заданий </p></strong> </a></div>
 {% endif %}
 
 </div>
 <div id="content">
 
-
     <br>
-    <h4>Лучшие посты </h4>
+    <h4>Последние задания </h4>
 
 
-
-
+    <p>
         {% for post in posts %}
 
             <div>
-                <p id = "popa" hidden>published: {{ post.published_date }}</p>
-{#                <p id = "author_of_p" hidden>published: {{ post. }}</p>#}
-                <h3> <a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h3>
-                <a id = "text_of_post" hidden>{{ post.text|linebreaksbr }}</a>
+                <!--<p>published: {{ post.published_date }}</p> -->
+                <h3> <a href="{% url 'task_detail' pk=post.pk %}">{{ post.title }}</a></h3>
+                <!--<p>{{ post.text|linebreaksbr }}</p>-->
             </div>
             {% if post.image %}
-                {% if post.image.width < post.image.height %}
-
-
-                    {% endif %}
-                <img src="{{ post.image.url }}" class="img-responsive" width="600" />
+                <img src="{{ post.image.url }}" class="img-responsive" width="600"/>
             {% endif %}
-
             <p></p>
-            <div hidden>
-            {% for comment in post.coms %}
-                <h3> Author: {{ comment.author_name }}</h3>
-                <p></p>
-                 <h3> Comment: {{ comment.text }}</h3>
-                 <p></p>
-            {% endfor %}
-            </div>
         {% endfor %}
-
-
     {% if user.is_authenticated %}
 
 
     {% endif %}
-<script>
-    'use strict';
-    function number_of_child(parent1,child1)
-    {
-        let children = parent1.childNodes;
-        for(let j =0;j<children.length;j++)
-        {
-            if(children[j] === child1)
-            {
-                return j;
-            }
-        }
-        return -1;
-    }
-    function func()
-    {
-        //alert(event.target.parentElement.tagName);
-        //alert(event.target.tagName);
 
-        let parent = event.target.parentElement;
-        let cur = event.target;
-        const pref = 5;
-        const post_size = 8;
-        if(cur.tagName === "IMG")
-        {
-            let post_number = Math.floor(((number_of_child(parent,cur)) - pref)/post_size);
-            //alert(so);
-            let s = parent.childNodes;
-            let needed = s[pref+post_number*post_size].childNodes[1];
-            let comments_of_post = s[pref+(1+post_number)*post_size - 2];
-            //alert(comments_of_post.);
-
-            //needed.innerText ="asd";
-            needed.hidden = !needed.hidden;
-            comments_of_post.hidden = !comments_of_post.hidden
-        }
-
-        //s.hidden = true;
-
-        //alert(needed.tagName);
-       {% comment %} for(let j =0;j<needed.length;j++)
-        {
-            alert(needed[j].nodeName);
-        }{% endcomment %}
-
-
-        //alert(publ);
-        //alert(publ);
-
-
-        //alert("asd");
-    }
-    content.onclick = func;
-</script>
+<!-- кнопка создать пост внизу страницы -->
 
 </p>
 </div>
@@ -183,7 +109,6 @@ font-size: 100%;
 margin-left: 16px;
 margin-top: 30px;
 margin-bottom: 4px;
-
 }
 
 bs{
@@ -256,10 +181,13 @@ font-family: "Roboto", sans-serif;
 {% else %}
     margin-left: 340px;
 {% endif %}
+
 /* Отступ справа */
 margin-right: 160px; /* Отступ справа */
 padding: 40px; /* Отступы внутри правого блока */
+
 }
+
 #content2 {
 font-family: "Roboto", sans-serif;
 width: 200px;
@@ -279,22 +207,6 @@ position: fixed;
 </body>
 </html>
 
-<script>
-    function ass() {
-        alert("asd");
-    }
-    input.onclick = ass;
-</script>
-<script>
-  function handler1() {
-    alert('Спасибо!');
-  };
 
-  function handler2() {
-    alert('Спасибо ещё раз!');
-  }
 
-  elem1.onclick = function() { alert("Привет"); };
-  elem1.addEventListener("click", handler1); // Спасибо!
-  elem1.addEventListener("click", handler2); // Спасибо ещё раз!
-</script>
+
