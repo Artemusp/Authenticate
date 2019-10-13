@@ -9,6 +9,19 @@ from .forms import ProfileForm, TaskForm
 from .models import Profile, Task, Comment
 from django.contrib.auth.models import User,Group
 
+def page_1(request):
+
+
+
+    return render(request,"user_example/page_1.html")
+
+
+def page_2(request):
+    return render(request, "user_example/page_2.html")
+
+
+def page_3(request):
+    return render(request, "user_example/page_3.html")
 
 def comment_new(request,pk):
     post_of_comment = int(pk)
@@ -61,6 +74,15 @@ def remove_post(request,pk):
     #posts = Post.objects.filter( published_date__lte=timezone.now()).order_by('published_date')
     return start_page(request)
 
+def remove_task(request,pk):
+    post = get_object_or_404(Task, pk=pk)
+    if request.user != post.author:
+        return start_page(request)
+    #print(post.title,post.text,post.author)
+    Task.objects.filter(author=post.author,text=post.text,title=post.title).delete()
+    #posts = Post.objects.filter( published_date__lte=timezone.now()).order_by('published_date')
+    return start_page(request)
+
 # Редактирование поста
 def post_edit(request, pk):
     if not request.user.is_authenticated:
@@ -85,6 +107,30 @@ def post_edit(request, pk):
     else:
         form = PostForm(instance=post)
     return render(request, 'user_example/post_edit.html', {'form': form})
+
+def task_edit(request, pk):
+    if not request.user.is_authenticated:
+        return start_page(request)
+    post = get_object_or_404(Task, pk=pk)
+
+    if request.user != post.author:
+
+        return start_page(request)
+    if request.method == "POST":
+        form = TaskForm(request.POST, request.FILES or None, instance=post)
+
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.author = request.user
+
+            post.published_date = timezone.now()
+            if parser_for_video_url(post.video_url):
+                post.video_url = parser_for_video_url(post.video_url)
+            post.save()
+            return redirect('task_detail', pk=post.pk)
+    else:
+        form = TaskForm(instance=post)
+    return render(request, 'user_example/task_edit.html', {'form': form})
 
 # Кнопки
 def buttons(request):
@@ -196,8 +242,8 @@ def start_page(request):
     comments = dict()
     for j in range(len(posts)):
         cur = posts[j]
-        coms = Comment.objects.filter(article_id=cur.id)
-        posts[j].coms = coms
+        coms = Comment.objects.filter(article_id=cur.id).last()
+        posts[j].coms = [coms]
 
 
     return render(request,"user_example/start_page.html", {'posts': posts})
@@ -239,7 +285,7 @@ def profile(request):
 
 # Страница регистрации нового пользователя
 def register(request):
-    return start_page(request)### потом убрать
+    #return start_page(request)### потом убрать
     if request.method == "POST":
         form = UserCreationForm(request.POST)
 

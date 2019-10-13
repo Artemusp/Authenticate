@@ -56,6 +56,9 @@ class="glyphicon glyphicon-user "></span>
 <div><a id="link1" href="{% url 'start_page' %}"> <strong><p> Основная страница </p></strong> </a></div>
 <div><a id="link1" href="{% url 'working_page' %}"> <strong><p> Черновая страница </p></strong> </a></div>
 <div><a id="link1" href="{% url 'task_page' %}"> <strong><p> Страница заданий </p></strong> </a></div>
+<div><a id="link1" href="{% url 'page_1' %}"> <strong><p> Информация обо мне </p></strong> </a></div>
+<div><a id="link1" href="{% url 'page_2' %}"> <strong><p> Достижения </p></strong> </a></div>
+<div><a id="link1" href="{% url 'page_3' %}"> <strong><p> Контакты </p></strong> </a></div>
 {% endif %}
 
 </div>
@@ -70,7 +73,7 @@ class="glyphicon glyphicon-user "></span>
     {% endif %}
     <p>
         {% for post in posts %}
-
+            <div >
             <div>
                 <!--<p>published: {{ post.published_date }}</p> -->
                 <h3> <a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h3>
@@ -80,6 +83,7 @@ class="glyphicon glyphicon-user "></span>
                 <img src="{{ post.image.url }}" class="img-responsive" width="600"/>
             {% endif %}
             <p></p>
+            </div>
         {% endfor %}
     {% if user.is_authenticated %}
 
@@ -101,6 +105,37 @@ background-attachment: fixed;
 
 
     }
+    .five {
+
+
+
+  right: 0px;
+}
+.five:hover {
+  right: -50px;
+
+}
+    kbd {font-size: 0.9em;display:inline-block;line-height:1.1;}
+
+.box {
+  width: 50%;
+
+  position: relative;
+}
+div, h2, img {
+  -webkit-transition: .5s ease-in-out;
+  -moz-transition: .5s ease-in-out;
+  -o-transition: .5s ease-in-out;
+  transition: .5s ease-in-out;
+}
+
+
+div {
+  -webkit-transition: .5s ease-in-out;
+  -moz-transition: .5s ease-in-out;
+  -o-transition: .5s ease-in-out;
+  transition: .5s ease-in-out;
+}
 </style>
 
 <style>

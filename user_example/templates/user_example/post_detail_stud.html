@@ -85,13 +85,22 @@
 
 
                     <br></br>
-<h4>Комменты </h4>
+
+
+                    </p>
+                </div>
+        <h4>Комменты </h4>
  {% for post1 in coms %}
-     Author: {{ post1.author_name }}
+<div class="box"><div class="one">
+     <kbd>{{ post1.author_name }}</kbd>
      <p></p>
-     Comment: {{ post1.text }}
+
+     {{ post1.text }}
 
      <p></p>
+
+</div></div>
+    <p>
             {% endfor %}
 
             {% if user.is_authenticated %}
@@ -102,9 +111,6 @@
 
     </form>
             {% endif %}
-
-                    </p>
-                </div>
                 <div class="col-xs-12 col-sm-4 text-center">
 
 
@@ -269,4 +275,42 @@ background-color: rgba(252, 20, 0, 0.8);
 -ms-transform: rotate(360deg);
 -o-transform: rotate(360deg);
 transform: rotate(360deg);
+}
+    kbd {font-size: 0.9em;display:inline-block;line-height:1.1;}
+
+.box {
+  width: 50%;
+
+  position: relative;
+}
+div, h2, img {
+  -webkit-transition: .5s ease-in-out;
+  -moz-transition: .5s ease-in-out;
+  -o-transition: .5s ease-in-out;
+  transition: .5s ease-in-out;
+}
+
+
+div {
+  -webkit-transition: .5s ease-in-out;
+  -moz-transition: .5s ease-in-out;
+  -o-transition: .5s ease-in-out;
+  transition: .5s ease-in-out;
+}
+
+.one {
+  border: 5px solid transparent;
+  width: auto;
+  height: auto;
+  margin: 0 auto;
+  padding: 10px;
+}
+.one {
+  background-color: #b8daff;
+}
+.one:hover {
+  border: 5px solid #b2b1b1;
+  background-color: #b2e6f8;
+  border-top-left-radius: 100% 20px;
+  border-bottom-right-radius: 100% 20px;
 }

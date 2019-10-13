@@ -60,20 +60,27 @@ class="glyphicon glyphicon-user "></span>
 <div><a id="link1" href="{% url 'working_page' %}"> <strong><p> Черновая страница </p></strong> </a></div>
 <div><a  id="link1" href="{% url 'task_page' %}"> <strong><p> Страница заданий </p></strong> </a></div>
 
+<div><a id="link1" href="{% url 'page_1' %}"> <strong><p> Информация обо мне </p></strong> </a></div>
+<div><a id="link1" href="{% url 'page_2' %}"> <strong><p> Достижения </p></strong> </a></div>
+<div><a id="link1" href="{% url 'page_3' %}"> <strong><p> Контакты </p></strong> </a></div>
 {% endif %}
+
+
+
 
 </div>
 <div id="content">
 
 
     <br>
-    <h4>Лучшие посты </h4>
+    <h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  Лучшие посты </h4>
+<br>
 
 
 
 
         {% for post in posts %}
-
+            <div >
             <div>
                 <p id = "popa" hidden>published: {{ post.published_date }}</p>
 {#                <p id = "author_of_p" hidden>published: {{ post. }}</p>#}
@@ -97,6 +104,7 @@ class="glyphicon glyphicon-user "></span>
                  <p></p>
             {% endfor %}
             </div>
+        </div>
         {% endfor %}
 
 
@@ -272,7 +280,106 @@ background: #edeef0; /* Цвет фона левого блока */
 position: fixed;
 
 }
+kbd {font-size: 0.9em;display:inline-block;line-height:1.1;}
 
+.box {
+  width: 50%;
+
+  position: relative;
+}
+div, h2, img {
+  -webkit-transition: .5s ease-in-out;
+  -moz-transition: .5s ease-in-out;
+  -o-transition: .5s ease-in-out;
+  transition: .5s ease-in-out;
+}
+
+
+div {
+  -webkit-transition: .5s ease-in-out;
+  -moz-transition: .5s ease-in-out;
+  -o-transition: .5s ease-in-out;
+  transition: .5s ease-in-out;
+}
+
+.one {
+  border: 5px solid transparent;
+  width: auto;
+  height: auto;
+  margin: 0 auto;
+  padding: 10px;
+}
+.one {
+  background-color: #b8daff;
+}
+.one:hover {
+
+  background-color: #b2e6f8;
+  border-top-left-radius: 100% 20px;
+  border-bottom-right-radius: 100% 20px;
+}
+.two {
+  background-color: #9F908F;
+}
+.two:hover {
+  border: 5px inset #9F908F;
+  background-color: #E0CABB;
+}
+.three {
+  background-color: #FBE2A9;
+  border: 5px solid #FFD18F;
+  outline: 5px solid transparent;
+}
+.three:hover {
+  outline: 5px solid #9E8463;
+  outline-offset: 5px;
+}
+.seven {
+  width: 300px;
+  height: 100px;
+  margin: 0 auto;
+  background-color: white;
+  background-image: -webkit-radial-gradient(#9ed8d3 2px, rgba(255,0,0,0) 3px);
+  background-image: -o-radial-gradient(#9ed8d3 2px, rgba(255,0,0,0) 3px);
+  background-image: radial-gradient(#9ed8d3 2px, transparent 3px);
+  background-size: 10px 10px;
+}
+.seven:hover {
+  background-size: 20px 20px;
+}
+.six {
+  width: 200px;
+  height: 100px;
+  margin: 0 auto;
+  box-shadow:
+    0 2px 4px rgba(0,0,0, .2),
+    0 -2px 4px rgba(0,0,0, .2);
+  background: url("https://html5book.ru/wp-content/uploads/2015/01/border-flower.png");
+  background-repeat: no-repeat;
+  background-position: bottom center;
+}
+.six:hover {
+  background-position: top center;
+}
+.five {
+
+
+
+  right: 0px;
+}
+.five:hover {
+  right: -50px;
+
+}
+.four {
+
+  background-color: #95A1B1;
+  margin: 0 auto;
+}
+.four:hover {
+
+
+}
 </style>
 
 
@@ -298,3 +405,5 @@ position: fixed;
   elem1.addEventListener("click", handler1); // Спасибо!
   elem1.addEventListener("click", handler2); // Спасибо ещё раз!
 </script>
+
+
